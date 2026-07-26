@@ -569,7 +569,141 @@ COMPONENTS = {
     },
 }
 
-# Maintenance schedule summary -- optimized for near-zero failures
+# MATERIALS: per-component fabrication materials, specs, and cost for Tab 2 (capture unit)
+# Each entry: material, grade, fabrication method, est_cost_usd, cost_reduction note
+MATERIALS = {
+    "frame": {
+        "material": "Galvanized structural steel (A36)",
+        "grade": "ASTM A36, hot-dip galvanized Z275",
+        "fabrication": "Welded box sections, bolted field joints, 0.3m sections",
+        "est_cost_usd": 180000,
+        "cost_reduction": "Use HSS tube instead of I-beam (-15% weight, -8% cost)",
+    },
+    "foundation": {
+        "material": "Reinforced concrete",
+        "grade": "C32/40, B500B rebar, 200mm slab",
+        "fabrication": "Cast in-situ, vibration-finished, curing compound",
+        "est_cost_usd": 25000,
+        "cost_reduction": "Use recycled aggregate (-5% cost, -30% embodied CO2)",
+    },
+    "columns": {
+        "material": "Structural steel pipe (HSS)",
+        "grade": "ASTM A500 Gr B, 400mm dia, 8mm wall",
+        "fabrication": "Cut + welded base plates, anchor bolts to foundation",
+        "est_cost_usd": 15000,
+        "cost_reduction": "Use spun concrete poles for non-seismic sites (-40% cost)",
+    },
+    "walkway": {
+        "material": "Galvanized steel grating + aluminum railing",
+        "grade": "ISO 14122-2 compliant, 30mm mesh grating",
+        "fabrication": "Bolted grating clips, aluminum extrusion rails",
+        "est_cost_usd": 8000,
+        "cost_reduction": "Use FRP grating (-20% cost, -60% weight, corrosion-free)",
+    },
+    "ladder": {
+        "material": "Galvanized steel, safety cage",
+        "grade": "OSHA 1910.28 compliant, 450mm rung spacing",
+        "fabrication": "Welded rungs to side rails, bolted to frame",
+        "est_cost_usd": 3000,
+        "cost_reduction": "Use aluminum ladder (-30% cost, -50% weight)",
+    },
+    "fans": {
+        "material": "CFRP blades, Ti-6Al-4V hub, SS 304 shroud",
+        "grade": "Aerospace-grade CFRP (T800 carbon), Ti Grade 5 hub",
+        "fabrication": "Autoclave layup blades, CNC-machined hub, magnetic bearings",
+        "est_cost_usd": 320000,
+        "cost_reduction": "Use glass-fiber blades for low-speed fans (-60% cost, +15% weight)",
+    },
+    "fan_motor": {
+        "material": "Direct-drive PMAC motor",
+        "grade": "IE5 efficiency, NdFeB magnets, water-cooled stator",
+        "fabrication": "Integrated hub motor, sealed bearings, VFD control",
+        "est_cost_usd": 95000,
+        "cost_reduction": "Use ferrite magnets instead of NdFeB (-25% cost, +10% size)",
+    },
+    "sorbent_bed": {
+        "material": "PEI on mesoporous silica / MOF support",
+        "grade": "Next-gen amine-functionalized MOF-74, 450 CPSI honeycomb",
+        "fabrication": "Washcoated monolith, steel frame cassette, slide-in module",
+        "est_cost_usd": 100000,
+        "cost_reduction": "Use pellet bed instead of monolith (-30% cost, -10% efficiency)",
+    },
+    "bed_frame": {
+        "material": "SS 304 cassette frame",
+        "grade": "ASTM A240 304, 2B finish, 3mm sheet",
+        "fabrication": "Laser-cut + press-braked, slide-in rails on contactor",
+        "est_cost_usd": 12000,
+        "cost_reduction": "Use galvanized steel instead of SS 304 (-50% cost, rust risk)",
+    },
+    "regen_chamber": {
+        "material": "SS 316L pressure vessel",
+        "grade": "ASME B31.3, 316L sheet + structural, 0.1 bar vacuum rated",
+        "fabrication": "TIG welded, X-ray inspected, post-weld anneal",
+        "est_cost_usd": 280000,
+        "cost_reduction": "Use SS 304L where Cl <50ppm (-20% cost, corrosion risk in marine)",
+    },
+    "insulation": {
+        "material": "Ceramic fiber blanket",
+        "grade": "Al2O3-SiO2, 1400C rated, 0.4m thickness",
+        "fabrication": "Lagged + cladded with aluminum sheet, SS wire anchors",
+        "est_cost_usd": 18000,
+        "cost_reduction": "Use mineral wool (850C rated) for 100C process (-40% cost)",
+    },
+    "heaters": {
+        "material": "SiC ceramic IR elements",
+        "grade": "Silicon carbide, 300% derated, 1200C max",
+        "fabrication": "Cartridge-style, swappable, Inconel 600 terminals",
+        "est_cost_usd": 45000,
+        "cost_reduction": "Use NiCr wire elements (-60% cost, shorter life, +5% energy)",
+    },
+    "vacuum_pump": {
+        "material": "SS 316L dry screw, magnetic coupling",
+        "grade": "Hermetic, oil-free, PTFE lip seals",
+        "fabrication": "Precision-machined screw rotors, magnetic coupling, VFD",
+        "est_cost_usd": 85000,
+        "cost_reduction": "Use liquid ring pump (-50% cost, +water consumption, +maintenance)",
+    },
+    "manifold": {
+        "material": "SS 316L piping, welded",
+        "grade": "ASTM A312 TP316L, 800mm dia, sch 10s",
+        "fabrication": "Orbital TIG welded, trace-heated, X-ray inspected joints",
+        "est_cost_usd": 35000,
+        "cost_reduction": "Use SS 304L (-20% cost) or HDPE for low-temp sections (-60%)",
+    },
+    "valves": {
+        "material": "SS 316L body, PTFE seats, pneumatic actuator",
+        "grade": "API 608, 3-piece ball valve, spring-return actuator",
+        "fabrication": "Cast body, machined seats, double-block-and-bleed",
+        "est_cost_usd": 22000,
+        "cost_reduction": "Use SS 304 body for non-corrosive service (-25% cost)",
+    },
+    "plenum": {
+        "material": "SS 304 panels on galvanized frame",
+        "grade": "ASTM A240 304, 2mm sheet, removable panels",
+        "fabrication": "Bolted panels on frame, gasket-sealed, quick-release fasteners",
+        "est_cost_usd": 15000,
+        "cost_reduction": "Use aluminum panels (-15% cost, -50% weight, dents easier)",
+    },
+    "output_pipe": {
+        "material": "SS 316L, trace-heated",
+        "grade": "ASTM A312 TP316L, 400mm dia, sch 10s",
+        "fabrication": "Orbital welded, heat-traced with self-regulating cable",
+        "est_cost_usd": 8000,
+        "cost_reduction": "Use SS 304L for <100C service (-20% cost)",
+    },
+    "fasteners": {
+        "material": "SS 316 bolts + nuts",
+        "grade": "ASTM A193 B8M / A194 8M, Teflon-coated",
+        "fabrication": "Torque-controlled installation, anti-seize compound",
+        "est_cost_usd": 5000,
+        "cost_reduction": "Use galvanized Grade 8.8 for non-corrosive areas (-70% cost)",
+    },
+}
+
+# Total capture unit fabrication cost (sum of all MATERIALS entries)
+CAPTURE_UNIT_COST = sum(v["est_cost_usd"] for v in MATERIALS.values())
+
+
 MAINTENANCE = {
     "daily_inspect_h":        0.5,   # 30min/day automated sensor sweep
     "weekly_filter_h":        2.0,   # 2h/week robotic filter cleaning
@@ -1067,10 +1201,26 @@ def build_capture_parts(_n=1):
                       ["BLUPRINT: %.0f m W x %.0f m H x %.0f m D (cross-flow slab)" % (
                           DIMS["contactor_w_m"], DIMS["contactor_h_m"], DIMS["contactor_d_m"]),
                        "SCALE: 1 unit = 8 m (capture view)",
-                       "galvanized steel frame, 0.3 m structural sections",
+                       "MATERIAL: %s" % MATERIALS["frame"]["material"],
+                       "GRADE: %s" % MATERIALS["frame"]["grade"],
+                       "FAB: %s" % MATERIALS["frame"]["fabrication"],
+                       "FOUNDATION: %s, %s" % (MATERIALS["foundation"]["material"],
+                                                 MATERIALS["foundation"]["grade"]),
+                       "COLUMNS: %s, %s" % (MATERIALS["columns"]["material"],
+                                              MATERIALS["columns"]["grade"]),
+                       "WALKWAY: %s" % MATERIALS["walkway"]["material"],
+                       "LADDER: %s" % MATERIALS["ladder"]["material"],
+                       "FASTENERS: %s" % MATERIALS["fasteners"]["material"],
                        "holds %d fans in a 4x2 grid + sorbent bed" % n_fans,
                        "wind load rated to 200 km/h, seismic zone 2",
-                       "based on cooling-tower geometry (CE / Climeworks design)"],
+                       "based on cooling-tower geometry (CE / Climeworks design)",
+                       "COST: $%.0fK (frame+found+cols+walk+ladder+fasteners)" % (
+                           MATERIALS["frame"]["est_cost_usd"] / 1000 +
+                           MATERIALS["foundation"]["est_cost_usd"] / 1000 +
+                           MATERIALS["columns"]["est_cost_usd"] / 1000 +
+                           MATERIALS["walkway"]["est_cost_usd"] / 1000 +
+                           MATERIALS["ladder"]["est_cost_usd"] / 1000 +
+                           MATERIALS["fasteners"]["est_cost_usd"] / 1000)],
                       0, (0, 0, 0), C_CONTACTOR))
 
     # --- Structural support columns (4 corners) -----------------------------
@@ -1140,6 +1290,12 @@ def build_capture_parts(_n=1):
     parts.append(Part("fans", "FAN ARRAY -- 8x 3.5m dia", fan_meshes_all,
                       ["BLUPRINT: %d axial fans, %.0f m diameter each" % (n_fans, DIMS["fan_d_m"]),
                        "SCALE: fan diameter = %.1f display units" % _cap(DIMS["fan_d_m"]),
+                       "MATERIAL: %s" % MATERIALS["fans"]["material"],
+                       "GRADE: %s" % MATERIALS["fans"]["grade"],
+                       "FAB: %s" % MATERIALS["fans"]["fabrication"],
+                       "MOTOR: %s" % MATERIALS["fan_motor"]["material"],
+                       "MOTOR GRADE: %s" % MATERIALS["fan_motor"]["grade"],
+                       "SHROUD: SS 304, spun + welded, 1.15x fan dia",
                        "%d CFRP blades per fan, Ti-6Al-4V hub, direct-drive" % n_blades,
                        "4-wide x 2-tall grid, spacing: %.1f m x %.1f m" % (
                            DIMS["contactor_w_m"]/4, DIMS["contactor_h_m"]/2),
@@ -1147,7 +1303,10 @@ def build_capture_parts(_n=1):
                        "total: %.0f million m3/h across all 80 contactors" % (
                            80 * 500000 / 1e6),
                        "MTBF %.0f h (contactless magnetic bearings)" %
-                           COMPONENTS["fans"]["mtbf_h"]],
+                           COMPONENTS["fans"]["mtbf_h"],
+                       "COST: $%.0fK (fans+motors)" % (
+                           MATERIALS["fans"]["est_cost_usd"] / 1000 +
+                           MATERIALS["fan_motor"]["est_cost_usd"] / 1000)],
                       1, (0, 0, -1.2), C_FAN))
     parts[-1].fire_anchor = np.array([0.0, 0.0, -cd/2 - _cap(0.5)])
 
@@ -1177,6 +1336,11 @@ def build_capture_parts(_n=1):
                           DIMS["bed_w_m"], DIMS["bed_h_m"], DIMS["bed_d_m"]),
                        "SCALE: bed volume = %.0f m3" % (
                            DIMS["bed_w_m"] * DIMS["bed_h_m"] * DIMS["bed_d_m"]),
+                       "MATERIAL: %s" % MATERIALS["sorbent_bed"]["material"],
+                       "GRADE: %s" % MATERIALS["sorbent_bed"]["grade"],
+                       "FAB: %s" % MATERIALS["sorbent_bed"]["fabrication"],
+                       "CASSETTE: %s" % MATERIALS["bed_frame"]["material"],
+                       "CASSETTE GRADE: %s" % MATERIALS["bed_frame"]["grade"],
                        "%.0f t sorbent (PEI on silica/MOF), %.3f kg CO2/kg" % (
                            DIMS["sorbent_t_per_bed"], DIMS["sorbent_cap_kg_kg"]),
                        "%.1f t CO2 captured per cycle (2 mmol/g capacity)" % (
@@ -1184,7 +1348,10 @@ def build_capture_parts(_n=1):
                        "%d honeycomb layers, 1 mm channels, 450 CPSI" % n_layers,
                        "cyclic: capture -> regenerate -> cool",
                        "design life %d years, antioxidant + thermal stabilized" %
-                           COMPONENTS["sorbent"]["design_life_years"]],
+                           COMPONENTS["sorbent"]["design_life_years"],
+                       "COST: $%.0fK (sorbent+cassette)" % (
+                           MATERIALS["sorbent_bed"]["est_cost_usd"] / 1000 +
+                           MATERIALS["bed_frame"]["est_cost_usd"] / 1000)],
                       2, (0, 0, 0.8), C_SORBENT))
 
     # --- Regeneration chamber (heats the sorbent to release CO2) -----------
@@ -1215,13 +1382,23 @@ def build_capture_parts(_n=1):
                           DIMS["regen_w_m"], DIMS["regen_h_m"], DIMS["regen_d_m"]),
                        "SCALE: chamber volume = %.0f m3" % (
                            DIMS["regen_w_m"] * DIMS["regen_h_m"] * DIMS["regen_d_m"]),
+                       "MATERIAL: %s" % MATERIALS["regen_chamber"]["material"],
+                       "GRADE: %s" % MATERIALS["regen_chamber"]["grade"],
+                       "FAB: %s" % MATERIALS["regen_chamber"]["fabrication"],
+                       "INSULATION: %s" % MATERIALS["insulation"]["material"],
+                       "INSULATION GRADE: %s" % MATERIALS["insulation"]["grade"],
+                       "HEATERS: %s" % MATERIALS["heaters"]["material"],
                        "heats sorbent to %.0f C under vacuum (~0.1 bar), SS 316L" % DIMS["regen_temp_c"],
                        "%d ceramic IR heater rows, %.1f m insulation" % (
                            n_heaters, DIMS["regen_insul_d_m"]),
                        "%.0f kWh/t thermal, solar thermal + geothermal" % ENERGY["regen_thermal_kwh_t"],
                        "MTBF %.0f h, design life %d years" % (
                            COMPONENTS["regen_units"]["mtbf_h"],
-                           COMPONENTS["regen_units"]["design_life_years"])],
+                           COMPONENTS["regen_units"]["design_life_years"]),
+                       "COST: $%.0fK (chamber+insul+heaters)" % (
+                           MATERIALS["regen_chamber"]["est_cost_usd"] / 1000 +
+                           MATERIALS["insulation"]["est_cost_usd"] / 1000 +
+                           MATERIALS["heaters"]["est_cost_usd"] / 1000)],
                       3, (0, 0, 1.5), C_REGEN))
 
     # --- Vacuum pump (extracts CO2 from regen chamber) ----------------------
@@ -1239,13 +1416,18 @@ def build_capture_parts(_n=1):
                           DIMS["regen_vacuum_d_m"], DIMS["regen_vacuum_h_m"]),
                        "SCALE: pump volume = %.1f m3" % (
                            math.pi * (DIMS["regen_vacuum_d_m"]/2)**2 * DIMS["regen_vacuum_h_m"]),
+                       "MATERIAL: %s" % MATERIALS["vacuum_pump"]["material"],
+                       "GRADE: %s" % MATERIALS["vacuum_pump"]["grade"],
+                       "FAB: %s" % MATERIALS["vacuum_pump"]["fabrication"],
+                       "SEALS: PTFE lip seals, hermetic, oil-free",
                        "SS 316L body, PTFE seals, %.0f kWh/t electrical" % ENERGY["vacuum_elec_kwh_t"],
                        "creates ~0.1 bar vacuum for CO2 release",
                        "dry screw, hermetic, magnetic coupling (no oil), life %d yr" %
                            COMPONENTS["vacuum_pumps"]["design_life_years"],
                        "MTBF %.0f h, %.0f%% prevented by thermal monitoring" % (
                            COMPONENTS["vacuum_pumps"]["mtbf_h"],
-                           COMPONENTS["vacuum_pumps"]["predictive_factor"] * 100)],
+                           COMPONENTS["vacuum_pumps"]["predictive_factor"] * 100),
+                       "COST: $%.0fK" % (MATERIALS["vacuum_pump"]["est_cost_usd"] / 1000)],
                       4, (1.2, 0, 1.5), C_COMP))
 
     # --- CO2 collection manifold (regen -> compressor) ----------------------
@@ -1265,9 +1447,13 @@ def build_capture_parts(_n=1):
                       ["BLUPRINT: %d collection pipe rows, %.0f mm dia" % (
                           n_rows, DIMS["manifold_d_m"] * 1000),
                        "SCALE: pipe span = %.0f m across chamber" % DIMS["regen_w_m"],
+                       "MATERIAL: %s" % MATERIALS["manifold"]["material"],
+                       "GRADE: %s" % MATERIALS["manifold"]["grade"],
+                       "FAB: %s" % MATERIALS["manifold"]["fabrication"],
                        "SS 316L, welded joints, trace-heated",
                        "gathers released CO2 from regeneration chamber",
-                       "feeds to the CO2 compressor train"],
+                       "feeds to the CO2 compressor train",
+                       "COST: $%.0fK" % (MATERIALS["manifold"]["est_cost_usd"] / 1000)],
                       5, (0, 0, 2.0), C_CO2BAND))
 
     # --- Valve system (cycles between capture and regeneration) ------------
@@ -1289,10 +1475,15 @@ def build_capture_parts(_n=1):
     parts.append(Part("valves", "VALVE SYSTEM -- 3x 0.8m pneumatic", valve_meshes,
                       ["BLUPRINT: 3 cycling valves, 0.8 m dia, pneumatic actuated",
                        "SCALE: positioned at intake, exhaust, and CO2 output",
+                       "MATERIAL: %s" % MATERIALS["valves"]["material"],
+                       "GRADE: %s" % MATERIALS["valves"]["grade"],
+                       "FAB: %s" % MATERIALS["valves"]["fabrication"],
+                       "SEALS: PTFE seats, spring-return pneumatic actuator",
                        "auto-switches between capture and regeneration phases",
                        "capture: intake open, exhaust open, CO2 closed",
                        "regen: all sealed, vacuum + heater on",
-                       "fail-safe design (spring-return on air loss)"],
+                       "fail-safe design (spring-return on air loss)",
+                       "COST: $%.0fK" % (MATERIALS["valves"]["est_cost_usd"] / 1000)],
                       6, (0, 1.0, 0.5), C_WARN))
 
     # --- Air intake plenum (behind the fan wall) ---------------------------
@@ -1309,9 +1500,13 @@ def build_capture_parts(_n=1):
                           DIMS["contactor_w_m"], DIMS["contactor_h_m"], DIMS["plenum_d_m"]),
                        "SCALE: plenum volume = %.0f m3" % (
                            DIMS["contactor_w_m"] * DIMS["contactor_h_m"] * DIMS["plenum_d_m"]),
+                       "MATERIAL: %s" % MATERIALS["plenum"]["material"],
+                       "GRADE: %s" % MATERIALS["plenum"]["grade"],
+                       "FAB: %s" % MATERIALS["plenum"]["fabrication"],
                        "distributes airflow evenly across sorbent bed",
                        "reduces turbulence, improves capture efficiency",
-                       "stainless steel construction, removable panels"],
+                       "SS 304 panels, gasket-sealed, quick-release fasteners",
+                       "COST: $%.0fK" % (MATERIALS["plenum"]["est_cost_usd"] / 1000)],
                       7, (0, 0, -0.8), C_CONTACTOR))
 
     # --- CO2 output pipe (manifold to compressor) --------------------------
@@ -1323,8 +1518,12 @@ def build_capture_parts(_n=1):
                       ["BLUPRINT: %.0f mm dia SS 316L pipe, trace-heated" % (
                           DIMS["manifold_d_m"] * 500),
                        "SCALE: ~5 m run from manifold to compressor train",
+                       "MATERIAL: %s" % MATERIALS["output_pipe"]["material"],
+                       "GRADE: %s" % MATERIALS["output_pipe"]["grade"],
+                       "FAB: %s" % MATERIALS["output_pipe"]["fabrication"],
                        "connects manifold to compressor train",
-                       "carries concentrated CO2 at ~1 bar, 100 C"],
+                       "carries concentrated CO2 at ~1 bar, 100 C",
+                       "COST: $%.0fK" % (MATERIALS["output_pipe"]["est_cost_usd"] / 1000)],
                       8, (0, 0, 2.5), C_CO2BAND))
 
     return parts
@@ -5043,6 +5242,35 @@ class App:
             self.screen.blit(self.fmicro.render(lab, True, C_TEXT_DIM), (x + 14, yy))
             self.screen.blit(self.fmicro.render(val, True, C_TEXT), (x + 110, yy))
             yy += 14
+
+        # --- Materials & fabrication (per-component) ---
+        yy += 6
+        pygame.draw.line(self.screen, C_PANEL_HI, (x + 8, yy), (x + w - 8, yy), 1)
+        yy += 6
+        self.screen.blit(self.fs.render("MATERIALS & FABRICATION", True, C_ACCENT), (x + 12, yy))
+        yy += 16
+        mat_order = [
+            ("Frame", "frame"), ("Foundation", "foundation"), ("Columns", "columns"),
+            ("Fans", "fans"), ("Motor", "fan_motor"), ("Sorbent", "sorbent_bed"),
+            ("Cassette", "bed_frame"), ("Regen vessel", "regen_chamber"),
+            ("Insulation", "insulation"), ("Heaters", "heaters"),
+            ("Vacuum pump", "vacuum_pump"), ("Manifold", "manifold"),
+            ("Valves", "valves"), ("Plenum", "plenum"),
+            ("Output pipe", "output_pipe"), ("Fasteners", "fasteners"),
+        ]
+        for lab, key in mat_order:
+            m = MATERIALS[key]
+            self.screen.blit(self.fmicro.render(lab, True, C_TEXT_DIM), (x + 14, yy))
+            self.screen.blit(self.fmicro.render(m["material"], True, C_TEXT), (x + 80, yy))
+            yy += 12
+            self.screen.blit(self.fmicro.render("  %s" % m["grade"], True, C_TEXT_DIM), (x + 80, yy))
+            yy += 12
+            self.screen.blit(self.fmicro.render("  $%.0fK" % (m["est_cost_usd"] / 1000), True, C_CO2), (x + 80, yy))
+            self.screen.blit(self.fmicro.render("SAVE: %s" % m["cost_reduction"], True, C_GOOD), (x + 130, yy))
+            yy += 13
+        yy += 4
+        self.screen.blit(self.fs.render("TOTAL: $%.0fK per capture unit" % (CAPTURE_UNIT_COST / 1000), True, C_CO2), (x + 12, yy))
+        yy += 16
 
         # --- Visual process flow ---
         yy += 6

@@ -35,6 +35,8 @@ A dimensional-accurate 3D model and live simulation of a complete DAC facility. 
    - Vacuum pump, CO2 manifold, valve system, intake plenum
    - Support columns, maintenance walkway, access ladder
    - Blueprint-scale labels on all parts
+   - **Per-component materials, grades, fabrication methods, and costs**
+   - **Cost reduction alternatives shown for every component**
 
 3. **OPERATION** -- Live simulation with day/night cycle
    - Real-time energy dispatch (solar/wind/geothermal -> storage -> capture)
@@ -219,6 +221,50 @@ A compact DAC unit that fits inside **one vacant floor** of a commercial skyscra
 | Energy | Renewable self-generation | Building electrical grid |
 
 Both approaches are complementary -- giga-plants for bulk removal, urban units for distributed capture where people live.
+
+## Capture Unit Fabrication Blueprint (Tab 2)
+
+Every component in the capture unit has specific materials, grades, fabrication methods, and cost estimates. The right panel in CAPTURE mode shows this information per-component, along with cost reduction alternatives.
+
+### Per-Component Materials & Cost
+
+| Component | Material | Grade | Fabrication | Cost | Cost Reduction Alternative |
+|-----------|----------|-------|-------------|------|---------------------------|
+| Frame | Galvanized structural steel (A36) | ASTM A36, hot-dip galvanized Z275 | Welded box sections, bolted field joints | $180K | HSS tube instead of I-beam (-8%) |
+| Foundation | Reinforced concrete | C32/40, B500B rebar, 200mm slab | Cast in-situ, vibration-finished | $25K | Recycled aggregate (-5%, -30% CO2) |
+| Columns | Structural steel pipe (HSS) | ASTM A500 Gr B, 400mm dia | Cut + welded base plates, anchor bolts | $15K | Spun concrete poles (-40%) |
+| Walkway | Galvanized steel grating + Al railing | ISO 14122-2, 30mm mesh | Bolted grating clips, Al extrusion rails | $8K | FRP grating (-20%, -60% weight) |
+| Ladder | Galvanized steel, safety cage | OSHA 1910.28, 450mm rungs | Welded rungs to side rails | $3K | Aluminum ladder (-30%) |
+| Fans (8x) | CFRP blades, Ti-6Al-4V hub, SS 304 shroud | T800 carbon, Ti Grade 5 | Autoclave layup, CNC hub, mag bearings | $320K | Glass-fiber blades (-60%) |
+| Fan motors | Direct-drive PMAC | IE5, NdFeB magnets, water-cooled | Integrated hub motor, VFD | $95K | Ferrite magnets (-25%) |
+| Sorbent bed | PEI on mesoporous silica/MOF | MOF-74, 450 CPSI honeycomb | Washcoated monolith, slide-in cassette | $100K | Pellet bed (-30%, -10% eff) |
+| Bed cassette | SS 304 frame | ASTM A240 304, 2B, 3mm | Laser-cut + press-braked, slide-in rails | $12K | Galvanized steel (-50%, rust risk) |
+| Regen chamber | SS 316L pressure vessel | ASME B31.3, 0.1 bar vacuum | TIG welded, X-ray inspected, annealed | $280K | SS 304L where Cl <50ppm (-20%) |
+| Insulation | Ceramic fiber blanket | Al2O3-SiO2, 1400C, 0.4m | Lagged + cladded, Al sheet, SS wire | $18K | Mineral wool 850C (-40%) |
+| Heaters | SiC ceramic IR elements | SiC, 300% derated, 1200C max | Cartridge-style, swappable, Inconel terms | $45K | NiCr wire (-60%, shorter life) |
+| Vacuum pump | SS 316L dry screw, mag coupling | Hermetic, oil-free, PTFE seals | Precision screw rotors, mag coupling, VFD | $85K | Liquid ring pump (-50%, +water) |
+| Manifold | SS 316L piping, welded | ASTM A312 TP316L, 800mm, sch 10s | Orbital TIG welded, trace-heated, X-ray | $35K | SS 304L (-20%) or HDPE (-60%) |
+| Valves (3x) | SS 316L body, PTFE seats | API 608, 3-piece ball, spring-return | Cast body, machined seats, DBB | $22K | SS 304 body (-25%) |
+| Plenum | SS 304 panels on galv. frame | ASTM A240 304, 2mm, removable | Bolted panels, gasket-sealed, QR fasteners | $15K | Aluminum panels (-15%, -50% wt) |
+| Output pipe | SS 316L, trace-heated | ASTM A312 TP316L, 400mm, sch 10s | Orbital welded, self-regulating heat trace | $8K | SS 304L for <100C (-20%) |
+| Fasteners | SS 316 bolts + nuts | ASTM A193 B8M / A194 8M, Teflon | Torque-controlled, anti-seize | $5K | Galvanized Gr 8.8 (-70%) |
+
+**Total capture unit cost: ~$1.27M** (per single contactor unit)
+
+### Cost Reduction Strategy
+
+The right panel in CAPTURE mode shows a "SAVE:" note for each component with a cheaper alternative. Key strategies:
+
+- **Fans**: Glass-fiber blades instead of CFRP saves ~$192K (60%) but adds 15% weight
+- **Regen chamber**: SS 304L instead of 316L saves ~$56K (20%) but risks corrosion in marine environments
+- **Vacuum pump**: Liquid ring pump saves ~$42K (50%) but increases water consumption
+- **Insulation**: Mineral wool instead of ceramic fiber saves ~$7K (40%) for 100C process
+- **Heaters**: NiCr wire instead of SiC ceramic saves ~$27K (60%) but shorter element life
+- **Sorbent**: Pellet bed instead of monolith saves ~$30K (30%) but 10% lower efficiency
+- **Fasteners**: Galvanized Gr 8.8 instead of SS 316 saves ~$3.5K (70%) for non-corrosive areas
+
+**Aggressive cost reduction: ~$360K savings (28%) -> ~$910K per unit**
+**Trade-offs**: Shorter component life, higher maintenance, corrosion risk in some environments
 
 ## Component Reliability
 

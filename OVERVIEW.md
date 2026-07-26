@@ -40,13 +40,20 @@ A real-time 3D simulation of a **multi-story Direct Air Capture (DAC) giga-plant
 Bird's-eye view of the entire 600 ha giga-plant. All components are positioned and sized from the `DIMS` dictionary for dimensional accuracy. Shows the full energy infrastructure, 50-story capture field, CO2 processing chain, and support buildings.
 
 ### CAPTURE (Tab 2)
-Close-up of a single air contactor unit with full engineering detail. Every part has a blueprint-style label with real dimensions. Includes:
-- Contactor frame (20 m x 12 m x 4 m) with support columns, walkway, and ladder
-- 8 fans with shrouds, CFRP blades, and Ti hubs
-- Sorbent bed with honeycomb channel detail
-- Regeneration chamber with insulation, heater rows, and connecting duct
-- Vacuum pump, CO2 manifold, valve system, intake plenum
-- Foundation pad for visual grounding
+Close-up of a single air contactor unit with full engineering detail. Every part has a blueprint-style label with real dimensions, **materials, grades, fabrication methods, and per-component costs**. Includes:
+- Contactor frame (20 m x 12 m x 4 m) -- galvanized steel A36, $180K
+- Support columns (HSS steel pipe), walkway (galv. grating), ladder (galv. steel)
+- 8 fans with CFRP blades, Ti-6Al-4V hubs, SS 304 shrouds, PMAC motors -- $415K
+- Sorbent bed (20 m x 10 m x 1.5 m) -- MOF-74 honeycomb in SS 304 cassette -- $112K
+- Regeneration chamber (12 m x 8 m x 10 m) -- SS 316L vessel, ceramic fiber insulation, SiC heaters -- $343K
+- Vacuum pump -- SS 316L dry screw, magnetic coupling, PTFE seals -- $85K
+- CO2 manifold -- SS 316L piping, orbital TIG welded, trace-heated -- $35K
+- Valve system (3x) -- SS 316L body, PTFE seats, pneumatic actuator -- $22K
+- Intake plenum -- SS 304 panels, gasket-sealed, quick-release -- $15K
+- Output pipe -- SS 316L, trace-heated -- $8K
+- Fasteners -- SS 316 bolts, Teflon-coated -- $5K
+- **Total: ~$1.27M per capture unit**
+- **Cost reduction alternatives shown for every component (up to 28% savings)**
 
 ### OPERATION (Tab 3)
 Live simulation with day/night cycle, weather, and real-time energy dispatch. Shows solar/wind/geothermal generation, energy storage levels, sorbent cycle phases, CO2 capture rate, and cost accumulation. Includes weekly operations panels with sparklines and a 15-year campaign summary.
